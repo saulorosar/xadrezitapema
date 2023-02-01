@@ -110,24 +110,29 @@
   
   <script>
   const teamName = "federacao-itapemense-de-xadrez";
-const playerInfoDiv = document.getElementById("player-info");
+  const playerInfoDiv = document.getElementById("player-info");
 
-fetch(`https://lichess.org/api/teams/${teamName}/members`)
-  .then(response => response.json())
-  .then(players => {
-    let playersHTML = "";
-    players.forEach(player => {
-      playersHTML += `<p>Username: ${player.username}</p>`;
-      playersHTML += `<p>Online: ${player.online}</p>`;
+  fetch(`https://lichess.org/api/teams/${teamName}/members`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Error fetching player information");
+      }
+      return response.json();
+    })
+    .then(players => {
+      let playersHTML = "";
+      players.forEach(player => {
+        playersHTML += `<p>Username: ${player.username}</p>`;
+        playersHTML += `<p>Online: ${player.online}</p>`;
+      });
+      playerInfoDiv.innerHTML = playersHTML;
+    })
+    .catch(error => {
+      console.error(error);
+      playerInfoDiv.innerHTML = "Error loading player information.";
     });
-    playerInfoDiv.innerHTML = playersHTML;
-  })
-  .catch(error => {
-    console.error(error);
-    playerInfoDiv.innerHTML = "Error loading player information.";
-  });
-
 </script>
+
   
 </body>
 
