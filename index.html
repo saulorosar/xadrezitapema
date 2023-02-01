@@ -112,7 +112,7 @@
   const teamName = "coders";
   const playerInfoDiv = document.getElementById("player-info");
 
-  fetch(`https://lichess.org/api/teams/${teamName}/users`)
+  fetch(`https://lichess.org/api/teams/${teamName}/members`)
     .then(response => response.json())
     .then(players => {
       let playersHTML = "";
